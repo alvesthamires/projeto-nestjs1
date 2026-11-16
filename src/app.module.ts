@@ -9,6 +9,7 @@ import { MediaController } from './media/media.controller.js';
 import { SegurancaController } from './seguranca/seguranca.controller.js';
 import { AdminController } from './admin/admin.controller.js';
 import { LoggerMiddleware } from './logger/logger.middleware.js';
+import { ColaboradoresController } from './colaboradores/colaboradores.controller.js';
 
 @Module({
   imports: [],
@@ -19,6 +20,7 @@ import { LoggerMiddleware } from './logger/logger.middleware.js';
     MediaController,
     SegurancaController,
     AdminController,
+    ColaboradoresController,
   ],
   providers: [AppService, ConvidadosService, LivrosService],
 })
