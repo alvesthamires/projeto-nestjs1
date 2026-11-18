@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ConvidadosController } from './convidados/convidados.controller.js';
@@ -9,24 +10,37 @@ import { MediaController } from './media/media.controller.js';
 import { SegurancaController } from './seguranca/seguranca.controller.js';
 import { AdminController } from './admin/admin.controller.js';
 import { LoggerMiddleware } from './logger/logger.middleware.js';
+import { ProdutosController } from './produtos/produtos.controller.js';
+import { ProdutosService } from './produtos/produtos.service.js';
+
 import { ColaboradoresController } from './colaboradores/colaboradores.controller.js';
 
 @Module({
-  imports: [],
-  controllers: [
-    AppController,
-    ConvidadosController,
-    LivrosController,
-    MediaController,
-    SegurancaController,
-    AdminController,
-    ColaboradoresController,
-  ],
-  providers: [AppService, ConvidadosService, LivrosService],
+  imports: [
+// Aula 18: variáveis de ambiente em toda a aplicação.
+ConfigModule.forRoot({ isGlobal: true }),
+],
+controllers: [
+AppController,
+ConvidadosController,
+LivrosController,
+MediaController,
+SegurancaController,
+AdminController,
+ProdutosController,
+ColaboradoresController,
+],
+providers: [
+AppService,
+ConvidadosService,
+LivrosService,
+ProdutosService,
+],
 })
+
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    // Aplicado a todas as rotas da aplicação.
-    consumer.apply(LoggerMiddleware).forRoutes('*');
-  }
+configure(consumer: MiddlewareConsumer) {
+// Aplicado a todas as rotas da aplicação.
+consumer.apply(LoggerMiddleware).forRoutes('*');
+}
 }
