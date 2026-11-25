@@ -15,7 +15,15 @@ export class ProdutosController {
     status: 201,
     description: 'Produto criado com sucesso.',
   })
-  criar(@Body() createProdutoDto: CreateProdutoDto) {
+  @ApiResponse({
+    status: 400,
+    description: 'Dados recusados pelo Schema.',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Produto já registrado.',
+  })
+  async criar(@Body() createProdutoDto: CreateProdutoDto) {
     return this.produtosService.create(createProdutoDto);
   }
 
